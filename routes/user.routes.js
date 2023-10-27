@@ -17,11 +17,11 @@ userRouter.post("/register", (req, res) => {
           pass: hash,
         });
         await user.save();
-        res.status(200).send({ msg: "The new user has been registerd", "new_user": req.body });
+        res.status(200).send({ "msg": "The new user has been registerd", "new_user": req.body });
       }
     });
   } catch (error) {
-    res.status(400).send({ error: error });
+    res.status(400).send({"error": error });
   }
 });
 
