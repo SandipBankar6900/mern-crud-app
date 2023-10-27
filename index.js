@@ -1,24 +1,26 @@
 const express = require("express");
-const { connection } = require("./db");
 const { userRouter } = require("./routes/user.routes");
-const { postRouter } = require("./routes/post.routes");
-const cors=require("cors")
-const app = express();
-app.use(cors())
+const { connection } = require("./db");
+require("dotenv").config();
+const cors = require("cors");
+const { noteRouter } = require("./routes/post.routes");
 
+const app = express();
+
+app.use(cors());
 app.use(express.json());
 
+app.use("/notes",noteRouter)
+app.use("/users",userRouter);
 
+app.listen(process.env.port,async()=>{
+    try {
+        await connection;
+        console.log("Server is connected to DB")
+        console.log(`Server is is running at port ${process.env.port}`)
 
-app.use("/users", userRouter);
-
-app.use("/posts", postRouter);
-
-app.listen(process.env.port, async () => {
-  try {
-    await connection;
-    console.log(`Connected to DB -- Listening on port ${process.env.port}`);
-  } catch (error) {
-    console.log("ERROR WHILE CONNECTING TO DATABASE - ", error);
-  }
-});
+        
+    } catch (error) {
+        console.log(error)
+    }
+})

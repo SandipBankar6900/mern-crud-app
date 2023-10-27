@@ -1,15 +1,19 @@
-const mongoose=require("mongoose");
-const postSchema=mongoose.Schema({
-    title:String,
-    body:String,
-    userId:String,
-    userName:String
-},{
-    versionKey:false
-})
+const mongoose = require("mongoose");
 
-const PostModel=mongoose.model("post",postSchema);
 
-module.exports={
-    PostModel
+const noteSchema = mongoose.Schema({
+    title: String,
+    body: String,
+    userId: String,
+    username: String
+},
+    {
+        versionKey: false
+    })
+
+
+const NoteModel = mongoose.model("note", noteSchema);
+module.exports = {
+    
+    NoteModel
 }
